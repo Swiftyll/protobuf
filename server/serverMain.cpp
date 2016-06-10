@@ -11,13 +11,13 @@ int main()
 	
 	usleep(1000);
 	std::string message;
-	
-	
+		
 	ProtoHandler pHandle;
 	ZMQHandler zHandle;
-	
+	int i;
+	for(i=0;i<10;i++){
 	zHandle.zmqReadMethod(message);
 	pHandle.protoMethod(message);
 	zHandle.zmqReplyMethod(message);
-	
+	}
 }

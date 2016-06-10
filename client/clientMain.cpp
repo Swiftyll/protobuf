@@ -7,12 +7,16 @@
 
 int main()
 {
-	std::cout << "started" << std::endl;
+
 	std::string message;
-	
 	ProtoHandler pHandle;
 	pHandle.protoMethod(message);
 	
 	ZMQHandler zHandle;
-	zHandle.zmqMethod(message);
+	int i;
+	for(i=0;i<10;i++){
+		zHandle.zmqMethod(message);
+		pHandle.protoPrint(message);
+	}
+	
 }

@@ -15,7 +15,7 @@
 
 using namespace google::protobuf;
 
-void ProtoHandler::protoMethod(std::string &request){
+void ProtoHandler::protoMethod(std::string &message){
 	//  cfile is a c file descriptor (not to be confused with a protobuf FileDescriptor object)
     int cfile = open("allProto.desc", O_RDONLY);
 	
@@ -55,8 +55,8 @@ void ProtoHandler::protoMethod(std::string &request){
 
 // Example of dynamically creating a message from a Descriptor, retrieved by name string
     Message *msg = dmf.GetPrototype(desc)->New();
-	msg->ParseFromArray(request.data(),request.size());
-		
+	msg->ParseFromArray(message.data(),message.size());
+	std::cout << "test321" << std::endl;
 // Messages with required fields - Need populated. 
 // Requires FieldDescriptor objects to access
     const FieldDescriptor* nameField = desc->FindFieldByName("full_name");
@@ -88,10 +88,11 @@ void ProtoHandler::protoMethod(std::string &request){
 	msgRefl->SetString(msg, dataField, payload_data);
 	
 // Now that required fields are populated, the dynamic message can be serialized and printed out.
-    string data;
-    msg->SerializeToString(&data);
-	request=data;
-
+   // string data;
+    msg->SerializeToString(&message);
+	//memccpy(request.data(), data.data(), data.length());
+	//request=data;
+	
 
 // put data back into message to be replied 
 	//memcpy(request.data(), data.c_str(), data.length());

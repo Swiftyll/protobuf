@@ -37,3 +37,13 @@ void ProtoHandler::protoMethod(std::string &message){
 
 	
 }
+
+void ProtoHandler::protoPrint(std::string &message){
+	
+	DescribedMessage dMsg;
+	Person p;
+	
+	dMsg.ParseFromArray(message.data(),message.size());
+	p.ParseFromString(dMsg.message());
+	std::cout << "Person debug: " << p.debug() << std::endl;
+}

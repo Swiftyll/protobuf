@@ -11,29 +11,22 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 
 void ZMQHandler::zmqReadMethod(std::string &message){
 	
-	std::cout << "debug";
 	bool ok = true;
+	
+	//  Wait for next request from client
+	zmq::message_t request;
+	 _socket.recv(&request);
 
-    while (true) {
-		std::cout << "While loop" << endl;
-        //  Wait for next request from client
-        zmq::message_t request;
-        ok = _socket.recv(&request);
-        assert(ok);
-		
-		std::string msg_str(static_cast<char*>(request.data()), request.size());
-		message = msg_str;
-		cout << "after while loop" << endl;
-    }
-    
+	std::string msg_str(static_cast<char*>(request.data()), request.size());
+	message = msg_str;
+
 }
 
 void ZMQHandler::zmqReplyMethod(std::string &message){
-	
-    _socket.bind ("tcp://0.0.0.0:8123");
-	zmq::message_t reply;
+
+	cout << message << endl;
+	zmq::message_t reply(message.length());
 	memcpy(reply.data(), message.c_str(), message.length());
-	
 	_socket.send (reply);
 	
 }
