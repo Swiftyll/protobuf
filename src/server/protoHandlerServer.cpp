@@ -13,22 +13,43 @@
 
 #include "protoHandlerServer.hpp"
 
+/*
+Function creates a dynamic message using 'allproto.desc' in order to create a dynamic message to modify/read the message being passed in.
+
+A FileDescriptorSet (fds) is created, and populated using 'allproto.desc'. The fds is now used to populate a SimpleDescriptorDatabase (sddb).
+	Note: - The .desc file is created at the same time as the .protoc file is compiled using ""descriptor_set_out yes""
+
+The sddb is used to construct a DescriptorPool object (dp).
+
+The dp is used to construct a DynamicMessageFactory (dmf).
+
+The dp's are also used to populate Descriptor objects (dp.FindMessageTypeByName("DescribedMessage")).
+
+The dmf can now be used to create dynamic messages using those created Descriptors, from these dynamic messages there is the ability the parse
+the recieved message.
+
+We can create FieldDescriptors for these messages, and use those to Read/Write to individual fields using Reflection
+
+In this example specifically we create a message for a 'envelope' message which contains the 'payload' message in byte format as one of its fields.
+We then create a second dynamic message in order to Parse the payload message which allows us to R/W the fields within. This allows to read/write the payload
+message without knowing about the message prior to run-time.
+
+*/
+
 using namespace google::protobuf;
 
 void ProtoHandler::protoMethod(std::string &message){
-	//  cfile is a c file descriptor (not to be confused with a protobuf FileDescriptor object)
+// cfile is a c file descriptor (not to be confused with a protobuf FileDescriptor object)
     int cfile = open("allProto.desc", O_RDONLY);
 	
     FileDescriptorSet fds;
 
-//  Parse a FileDescriptorSet object directly from the file
-//  Has the format of a protobuf Message - subclass FileDescriptorSet, defined in <google/protobuf/descriptor.pb.h>
-//  https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor.pb#FieldOptions_CType.details
+// Parse a FileDescriptorSet object directly from the file
+// Has the format of a protobuf Message - subclass FileDescriptorSet, defined in <google/protobuf/descriptor.pb.h>
+// https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor.pb#FieldOptions_CType.details
+
     fds.ParseFromFileDescriptor(cfile);
-		
-//  Use FileDescriptorSet method to print to screen
-//  fds.SerializeToOstream(&cout);
-	
+
 	close(cfile);
 	
 // A DescriptorPool is required: provides methods to identify and manage message types at run-time
@@ -56,13 +77,12 @@ void ProtoHandler::protoMethod(std::string &message){
 // Example of dynamically creating a message from a Descriptor, retrieved by name string
     Message *msg = dmf.GetPrototype(desc)->New();
 	msg->ParseFromArray(message.data(),message.size());
-	std::cout << "test321" << std::endl;
+
 // Messages with required fields - Need populated. 
 // Requires FieldDescriptor objects to access
     const FieldDescriptor* nameField = desc->FindFieldByName("full_name");
 	const FieldDescriptor* dataField = desc->FindFieldByName("message");
 
-	
 // Reflection object provides R/W access to dynamic message fields, using FieldDescriptors
 // https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message#Message.GetReflection.details
 // Good example of Reflection at top of that page
@@ -88,14 +108,9 @@ void ProtoHandler::protoMethod(std::string &message){
 	msgRefl->SetString(msg, dataField, payload_data);
 	
 // Now that required fields are populated, the dynamic message can be serialized and printed out.
-   // string data;
     msg->SerializeToString(&message);
-	//memccpy(request.data(), data.data(), data.length());
-	//request=data;
 	
-
-// put data back into message to be replied 
-	//memcpy(request.data(), data.c_str(), data.length());
+}
 
 // Useful examples of dynamic protobuf logic here : http://www.programmershare.com/2803644/
 // (English not very good)
@@ -104,5 +119,3 @@ void ProtoHandler::protoMethod(std::string &message){
 //  http://stackoverflow.com/questions/11996557/how-to-dynamically-build-a-new-protobuf-from-a-set-of-already-defined-descriptor
 //  https://bitbucket.org/g19fanatic/prototest/src/dfd73a577dcc9bb51cbb3e99319cad352bfc60a8/src/main.cpp?at=master&fileviewer=file-view-default
 	
-	
-}
