@@ -3,16 +3,17 @@
 #include <string>
 #include <iostream>
 
-#include "ZMQHandler.hpp"
+#include "ZMQHandlerClient.hpp"
 
 using namespace std;
 
 void ZMQHandler::zmqMethod(string &message){
-
+	//Set up ZMQ 
 	zmq::context_t context (1);
     zmq::socket_t socket (context, ZMQ_REQ);
 	socket.connect ("tcp://localhost:8123");
 
+	//Create and send the message
 	int message_size =  message.length();
 	zmq::message_t query(message_size);
 	memcpy(query.data(), message.c_str(), message_size);
@@ -22,7 +23,4 @@ void ZMQHandler::zmqMethod(string &message){
 	zmq::message_t reply;
 	socket.recv (&reply);
 
-
-	
-	
 }

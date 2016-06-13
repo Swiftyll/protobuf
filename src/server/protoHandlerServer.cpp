@@ -11,7 +11,7 @@
 #include <google/protobuf/descriptor_database.h>
 #include <google/protobuf/dynamic_message.h>
 
-#include "protoHandler.hpp"
+#include "protoHandlerServer.hpp"
 
 using namespace google::protobuf;
 

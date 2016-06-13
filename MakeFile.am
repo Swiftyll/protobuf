@@ -3,16 +3,16 @@ AM_LDFLAGS= -lpthread
 bin_PROGRAMS = protoTestClient protoTestServer
 protoTestClient_SOURCES = \
 	src/client/clientMain.cpp \
-	src/client/ZMQHandler.cpp \
-	src/client/protoHandler.cpp
+	src/client/ZMQHandlerClient.cpp \
+	src/client/protoHandlerClient.cpp
 	
 protoTestClient_CPPFLAGS = $(libzmq_CFLAGS) 
 protoTestClient_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
 
 protoTestServer_SOURCES = \
 	src/server/serverMain.cpp \
-	src/server/ZMQHandler.cpp \
-	src/server/protoHandler.cpp
+	src/server/ZMQHandlerServer.cpp \
+	src/server/protoHandlerServer.cpp
 	
 protoTestServer_CPPFLAGS = $(libzmq_CFLAGS) 
 protoTestServer_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
@@ -34,10 +34,6 @@ nodist_protoTestClient_SOURCES = \
 	@builddir@/src/pb2/phase2.pb.h \
 	@builddir@/src/pb2/sentMessage.pb.h\
 	@builddir@/src/pb2/sentMessage.pb.cc 
-	
-nodist_protoTestServer_SOURCES = \
-	@builddir@/src/pb2/phase2.pb.cc \
-	@builddir@/src/pb2/phase2.pb.h
 
 MOSTLYCLEANFILES = $(nodist_protoTestClient_SOURCES) \
                    $(nodist_protoTestServer_SOURCES) \

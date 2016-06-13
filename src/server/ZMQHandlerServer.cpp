@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 
-#include "ZMQHandler.hpp"
+#include "ZMQHandlerServer.hpp"
 
 using namespace std;
 
@@ -10,8 +10,6 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 }
 
 void ZMQHandler::zmqReadMethod(std::string &message){
-	
-	bool ok = true;
 	
 	//  Wait for next request from client
 	zmq::message_t request;

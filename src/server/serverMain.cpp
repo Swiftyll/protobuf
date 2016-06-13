@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <string>
 
-#include "protoHandler.hpp"
-#include "ZMQHandler.hpp"
+#include "protoHandlerServer.hpp"
+#include "ZMQHandlerServer.hpp"
 
 int main()
 {
