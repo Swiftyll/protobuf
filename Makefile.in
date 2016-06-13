@@ -97,8 +97,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_protoTestClient_OBJECTS =  \
 	src/client/protoTestClient-clientMain.$(OBJEXT) \
-	src/client/protoTestClient-ZMQHandler.$(OBJEXT) \
-	src/client/protoTestClient-protoHandler.$(OBJEXT)
+	src/client/protoTestClient-ZMQHandlerClient.$(OBJEXT) \
+	src/client/protoTestClient-protoHandlerClient.$(OBJEXT)
 nodist_protoTestClient_OBJECTS =  \
 	@builddir@/src/pb2/protoTestClient-phase2.pb.$(OBJEXT) \
 	@builddir@/src/pb2/protoTestClient-sentMessage.pb.$(OBJEXT)
@@ -108,8 +108,8 @@ am__DEPENDENCIES_1 =
 protoTestClient_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_protoTestServer_OBJECTS =  \
 	src/server/protoTestServer-serverMain.$(OBJEXT) \
-	src/server/protoTestServer-ZMQHandler.$(OBJEXT) \
-	src/server/protoTestServer-protoHandler.$(OBJEXT)
+	src/server/protoTestServer-ZMQHandlerServer.$(OBJEXT) \
+	src/server/protoTestServer-protoHandlerServer.$(OBJEXT)
 nodist_protoTestServer_OBJECTS =  \
 	@builddir@/src/pb2/protoTestServer-phase2.pb.$(OBJEXT)
 protoTestServer_OBJECTS = $(am_protoTestServer_OBJECTS) \
@@ -305,15 +305,15 @@ top_srcdir = @top_srcdir@
 AM_LDFLAGS = -lpthread
 protoTestClient_SOURCES = \
 	src/client/clientMain.cpp \
-	src/client/ZMQHandler.cpp \
-	src/client/protoHandler.cpp
+	src/client/ZMQHandlerClient.cpp \
+	src/client/protoHandlerClient.cpp
 
 protoTestClient_CPPFLAGS = $(libzmq_CFLAGS) 
 protoTestClient_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
 protoTestServer_SOURCES = \
 	src/server/serverMain.cpp \
-	src/server/ZMQHandler.cpp \
-	src/server/protoHandler.cpp
+	src/server/ZMQHandlerServer.cpp \
+	src/server/protoHandlerServer.cpp
 
 protoTestServer_CPPFLAGS = $(libzmq_CFLAGS) 
 protoTestServer_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
@@ -430,10 +430,10 @@ src/client/$(DEPDIR)/$(am__dirstamp):
 src/client/protoTestClient-clientMain.$(OBJEXT):  \
 	src/client/$(am__dirstamp) \
 	src/client/$(DEPDIR)/$(am__dirstamp)
-src/client/protoTestClient-ZMQHandler.$(OBJEXT):  \
+src/client/protoTestClient-ZMQHandlerClient.$(OBJEXT):  \
 	src/client/$(am__dirstamp) \
 	src/client/$(DEPDIR)/$(am__dirstamp)
-src/client/protoTestClient-protoHandler.$(OBJEXT):  \
+src/client/protoTestClient-protoHandlerClient.$(OBJEXT):  \
 	src/client/$(am__dirstamp) \
 	src/client/$(DEPDIR)/$(am__dirstamp)
 @builddir@/src/pb2/$(am__dirstamp):
@@ -461,10 +461,10 @@ src/server/$(DEPDIR)/$(am__dirstamp):
 src/server/protoTestServer-serverMain.$(OBJEXT):  \
 	src/server/$(am__dirstamp) \
 	src/server/$(DEPDIR)/$(am__dirstamp)
-src/server/protoTestServer-ZMQHandler.$(OBJEXT):  \
+src/server/protoTestServer-ZMQHandlerServer.$(OBJEXT):  \
 	src/server/$(am__dirstamp) \
 	src/server/$(DEPDIR)/$(am__dirstamp)
-src/server/protoTestServer-protoHandler.$(OBJEXT):  \
+src/server/protoTestServer-protoHandlerServer.$(OBJEXT):  \
 	src/server/$(am__dirstamp) \
 	src/server/$(DEPDIR)/$(am__dirstamp)
 @builddir@/src/pb2/protoTestServer-phase2.pb.$(OBJEXT):  \
@@ -487,11 +487,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@@builddir@/src/pb2/$(DEPDIR)/protoTestClient-phase2.pb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@@builddir@/src/pb2/$(DEPDIR)/protoTestClient-sentMessage.pb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@@builddir@/src/pb2/$(DEPDIR)/protoTestServer-phase2.pb.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/client/$(DEPDIR)/protoTestClient-clientMain.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/client/$(DEPDIR)/protoTestClient-protoHandler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/server/$(DEPDIR)/protoTestServer-protoHandler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/server/$(DEPDIR)/protoTestServer-serverMain.Po@am__quote@
 
 .cc.o:
@@ -524,33 +524,33 @@ src/client/protoTestClient-clientMain.obj: src/client/clientMain.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-clientMain.obj `if test -f 'src/client/clientMain.cpp'; then $(CYGPATH_W) 'src/client/clientMain.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/clientMain.cpp'; fi`
 
-src/client/protoTestClient-ZMQHandler.o: src/client/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-ZMQHandler.o -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Tpo -c -o src/client/protoTestClient-ZMQHandler.o `test -f 'src/client/ZMQHandler.cpp' || echo '$(srcdir)/'`src/client/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Tpo src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/ZMQHandler.cpp' object='src/client/protoTestClient-ZMQHandler.o' libtool=no @AMDEPBACKSLASH@
+src/client/protoTestClient-ZMQHandlerClient.o: src/client/ZMQHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-ZMQHandlerClient.o -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Tpo -c -o src/client/protoTestClient-ZMQHandlerClient.o `test -f 'src/client/ZMQHandlerClient.cpp' || echo '$(srcdir)/'`src/client/ZMQHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Tpo src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/ZMQHandlerClient.cpp' object='src/client/protoTestClient-ZMQHandlerClient.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-ZMQHandler.o `test -f 'src/client/ZMQHandler.cpp' || echo '$(srcdir)/'`src/client/ZMQHandler.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-ZMQHandlerClient.o `test -f 'src/client/ZMQHandlerClient.cpp' || echo '$(srcdir)/'`src/client/ZMQHandlerClient.cpp
 
-src/client/protoTestClient-ZMQHandler.obj: src/client/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-ZMQHandler.obj -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Tpo -c -o src/client/protoTestClient-ZMQHandler.obj `if test -f 'src/client/ZMQHandler.cpp'; then $(CYGPATH_W) 'src/client/ZMQHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/ZMQHandler.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Tpo src/client/$(DEPDIR)/protoTestClient-ZMQHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/ZMQHandler.cpp' object='src/client/protoTestClient-ZMQHandler.obj' libtool=no @AMDEPBACKSLASH@
+src/client/protoTestClient-ZMQHandlerClient.obj: src/client/ZMQHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-ZMQHandlerClient.obj -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Tpo -c -o src/client/protoTestClient-ZMQHandlerClient.obj `if test -f 'src/client/ZMQHandlerClient.cpp'; then $(CYGPATH_W) 'src/client/ZMQHandlerClient.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/ZMQHandlerClient.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Tpo src/client/$(DEPDIR)/protoTestClient-ZMQHandlerClient.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/ZMQHandlerClient.cpp' object='src/client/protoTestClient-ZMQHandlerClient.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-ZMQHandler.obj `if test -f 'src/client/ZMQHandler.cpp'; then $(CYGPATH_W) 'src/client/ZMQHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/ZMQHandler.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-ZMQHandlerClient.obj `if test -f 'src/client/ZMQHandlerClient.cpp'; then $(CYGPATH_W) 'src/client/ZMQHandlerClient.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/ZMQHandlerClient.cpp'; fi`
 
-src/client/protoTestClient-protoHandler.o: src/client/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-protoHandler.o -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-protoHandler.Tpo -c -o src/client/protoTestClient-protoHandler.o `test -f 'src/client/protoHandler.cpp' || echo '$(srcdir)/'`src/client/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-protoHandler.Tpo src/client/$(DEPDIR)/protoTestClient-protoHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/protoHandler.cpp' object='src/client/protoTestClient-protoHandler.o' libtool=no @AMDEPBACKSLASH@
+src/client/protoTestClient-protoHandlerClient.o: src/client/protoHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-protoHandlerClient.o -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Tpo -c -o src/client/protoTestClient-protoHandlerClient.o `test -f 'src/client/protoHandlerClient.cpp' || echo '$(srcdir)/'`src/client/protoHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Tpo src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/protoHandlerClient.cpp' object='src/client/protoTestClient-protoHandlerClient.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-protoHandler.o `test -f 'src/client/protoHandler.cpp' || echo '$(srcdir)/'`src/client/protoHandler.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-protoHandlerClient.o `test -f 'src/client/protoHandlerClient.cpp' || echo '$(srcdir)/'`src/client/protoHandlerClient.cpp
 
-src/client/protoTestClient-protoHandler.obj: src/client/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-protoHandler.obj -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-protoHandler.Tpo -c -o src/client/protoTestClient-protoHandler.obj `if test -f 'src/client/protoHandler.cpp'; then $(CYGPATH_W) 'src/client/protoHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/protoHandler.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-protoHandler.Tpo src/client/$(DEPDIR)/protoTestClient-protoHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/protoHandler.cpp' object='src/client/protoTestClient-protoHandler.obj' libtool=no @AMDEPBACKSLASH@
+src/client/protoTestClient-protoHandlerClient.obj: src/client/protoHandlerClient.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/client/protoTestClient-protoHandlerClient.obj -MD -MP -MF src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Tpo -c -o src/client/protoTestClient-protoHandlerClient.obj `if test -f 'src/client/protoHandlerClient.cpp'; then $(CYGPATH_W) 'src/client/protoHandlerClient.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/protoHandlerClient.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Tpo src/client/$(DEPDIR)/protoTestClient-protoHandlerClient.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/client/protoHandlerClient.cpp' object='src/client/protoTestClient-protoHandlerClient.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-protoHandler.obj `if test -f 'src/client/protoHandler.cpp'; then $(CYGPATH_W) 'src/client/protoHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/protoHandler.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/client/protoTestClient-protoHandlerClient.obj `if test -f 'src/client/protoHandlerClient.cpp'; then $(CYGPATH_W) 'src/client/protoHandlerClient.cpp'; else $(CYGPATH_W) '$(srcdir)/src/client/protoHandlerClient.cpp'; fi`
 
 @builddir@/src/pb2/protoTestClient-phase2.pb.o: @builddir@/src/pb2/phase2.pb.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestClient_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT @builddir@/src/pb2/protoTestClient-phase2.pb.o -MD -MP -MF @builddir@/src/pb2/$(DEPDIR)/protoTestClient-phase2.pb.Tpo -c -o @builddir@/src/pb2/protoTestClient-phase2.pb.o `test -f '@builddir@/src/pb2/phase2.pb.cc' || echo '$(srcdir)/'`@builddir@/src/pb2/phase2.pb.cc
@@ -594,33 +594,33 @@ src/server/protoTestServer-serverMain.obj: src/server/serverMain.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-serverMain.obj `if test -f 'src/server/serverMain.cpp'; then $(CYGPATH_W) 'src/server/serverMain.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/serverMain.cpp'; fi`
 
-src/server/protoTestServer-ZMQHandler.o: src/server/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-ZMQHandler.o -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Tpo -c -o src/server/protoTestServer-ZMQHandler.o `test -f 'src/server/ZMQHandler.cpp' || echo '$(srcdir)/'`src/server/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Tpo src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/ZMQHandler.cpp' object='src/server/protoTestServer-ZMQHandler.o' libtool=no @AMDEPBACKSLASH@
+src/server/protoTestServer-ZMQHandlerServer.o: src/server/ZMQHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-ZMQHandlerServer.o -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Tpo -c -o src/server/protoTestServer-ZMQHandlerServer.o `test -f 'src/server/ZMQHandlerServer.cpp' || echo '$(srcdir)/'`src/server/ZMQHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Tpo src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/ZMQHandlerServer.cpp' object='src/server/protoTestServer-ZMQHandlerServer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-ZMQHandler.o `test -f 'src/server/ZMQHandler.cpp' || echo '$(srcdir)/'`src/server/ZMQHandler.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-ZMQHandlerServer.o `test -f 'src/server/ZMQHandlerServer.cpp' || echo '$(srcdir)/'`src/server/ZMQHandlerServer.cpp
 
-src/server/protoTestServer-ZMQHandler.obj: src/server/ZMQHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-ZMQHandler.obj -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Tpo -c -o src/server/protoTestServer-ZMQHandler.obj `if test -f 'src/server/ZMQHandler.cpp'; then $(CYGPATH_W) 'src/server/ZMQHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/ZMQHandler.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Tpo src/server/$(DEPDIR)/protoTestServer-ZMQHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/ZMQHandler.cpp' object='src/server/protoTestServer-ZMQHandler.obj' libtool=no @AMDEPBACKSLASH@
+src/server/protoTestServer-ZMQHandlerServer.obj: src/server/ZMQHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-ZMQHandlerServer.obj -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Tpo -c -o src/server/protoTestServer-ZMQHandlerServer.obj `if test -f 'src/server/ZMQHandlerServer.cpp'; then $(CYGPATH_W) 'src/server/ZMQHandlerServer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/ZMQHandlerServer.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Tpo src/server/$(DEPDIR)/protoTestServer-ZMQHandlerServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/ZMQHandlerServer.cpp' object='src/server/protoTestServer-ZMQHandlerServer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-ZMQHandler.obj `if test -f 'src/server/ZMQHandler.cpp'; then $(CYGPATH_W) 'src/server/ZMQHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/ZMQHandler.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-ZMQHandlerServer.obj `if test -f 'src/server/ZMQHandlerServer.cpp'; then $(CYGPATH_W) 'src/server/ZMQHandlerServer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/ZMQHandlerServer.cpp'; fi`
 
-src/server/protoTestServer-protoHandler.o: src/server/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-protoHandler.o -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-protoHandler.Tpo -c -o src/server/protoTestServer-protoHandler.o `test -f 'src/server/protoHandler.cpp' || echo '$(srcdir)/'`src/server/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-protoHandler.Tpo src/server/$(DEPDIR)/protoTestServer-protoHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/protoHandler.cpp' object='src/server/protoTestServer-protoHandler.o' libtool=no @AMDEPBACKSLASH@
+src/server/protoTestServer-protoHandlerServer.o: src/server/protoHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-protoHandlerServer.o -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Tpo -c -o src/server/protoTestServer-protoHandlerServer.o `test -f 'src/server/protoHandlerServer.cpp' || echo '$(srcdir)/'`src/server/protoHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Tpo src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/protoHandlerServer.cpp' object='src/server/protoTestServer-protoHandlerServer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-protoHandler.o `test -f 'src/server/protoHandler.cpp' || echo '$(srcdir)/'`src/server/protoHandler.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-protoHandlerServer.o `test -f 'src/server/protoHandlerServer.cpp' || echo '$(srcdir)/'`src/server/protoHandlerServer.cpp
 
-src/server/protoTestServer-protoHandler.obj: src/server/protoHandler.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-protoHandler.obj -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-protoHandler.Tpo -c -o src/server/protoTestServer-protoHandler.obj `if test -f 'src/server/protoHandler.cpp'; then $(CYGPATH_W) 'src/server/protoHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/protoHandler.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-protoHandler.Tpo src/server/$(DEPDIR)/protoTestServer-protoHandler.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/protoHandler.cpp' object='src/server/protoTestServer-protoHandler.obj' libtool=no @AMDEPBACKSLASH@
+src/server/protoTestServer-protoHandlerServer.obj: src/server/protoHandlerServer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/server/protoTestServer-protoHandlerServer.obj -MD -MP -MF src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Tpo -c -o src/server/protoTestServer-protoHandlerServer.obj `if test -f 'src/server/protoHandlerServer.cpp'; then $(CYGPATH_W) 'src/server/protoHandlerServer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/protoHandlerServer.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Tpo src/server/$(DEPDIR)/protoTestServer-protoHandlerServer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/server/protoHandlerServer.cpp' object='src/server/protoTestServer-protoHandlerServer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-protoHandler.obj `if test -f 'src/server/protoHandler.cpp'; then $(CYGPATH_W) 'src/server/protoHandler.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/protoHandler.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/server/protoTestServer-protoHandlerServer.obj `if test -f 'src/server/protoHandlerServer.cpp'; then $(CYGPATH_W) 'src/server/protoHandlerServer.cpp'; else $(CYGPATH_W) '$(srcdir)/src/server/protoHandlerServer.cpp'; fi`
 
 @builddir@/src/pb2/protoTestServer-phase2.pb.o: @builddir@/src/pb2/phase2.pb.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(protoTestServer_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT @builddir@/src/pb2/protoTestServer-phase2.pb.o -MD -MP -MF @builddir@/src/pb2/$(DEPDIR)/protoTestServer-phase2.pb.Tpo -c -o @builddir@/src/pb2/protoTestServer-phase2.pb.o `test -f '@builddir@/src/pb2/phase2.pb.cc' || echo '$(srcdir)/'`@builddir@/src/pb2/phase2.pb.cc
