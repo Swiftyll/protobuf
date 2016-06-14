@@ -13,7 +13,7 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader){
 	
 
-	vector<string> v(1); // we know the multipart message has two parts 
+	vector<string> v; // we know the multipart message has two parts 
 	int i = 0;
 	
 	// process all parts of a multi-part message and place into vector v;
@@ -53,7 +53,6 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
         if (!more)
             break;              //  Last message part
     }
-	
 	messageHeader = v[0];
 	message = v[1];
 
