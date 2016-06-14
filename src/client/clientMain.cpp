@@ -8,16 +8,17 @@
 int main()
 {
 	std::string message;
+	std::string messageHeader;
 	
 	ProtoHandler pHandle;
-	pHandle.protoMethod(message);
+	pHandle.protoMethod(message, messageHeader);
 	
 	ZMQHandler zHandle;
 	int count;
 	
 	//Send message 10 sends and process reply
 	for(count=0;count<10;count++){
-		zHandle.zmqMethod(message);
+		zHandle.zmqMethod(message, messageHeader);
 		pHandle.protoPrint(message);
 	}
 	
