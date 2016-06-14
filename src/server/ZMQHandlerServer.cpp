@@ -12,14 +12,11 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 
 void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader){
 	
-	//  Wait for next request from client
-	//zmq::message_t request;
-	// _socket.recv(&request);
 
-	//std::string msg_str(static_cast<char*>(request.data()), request.size());
-	//message = msg_str;
-	vector<string> v(2);
+	vector<string> v(1); // we know the multipart message has two parts 
 	int i = 0;
+	
+	// process all parts of a multi-part message and place into vector v;
 	 while (1) {
         //  Process all parts of the message
         zmq::message_t recMessage;
