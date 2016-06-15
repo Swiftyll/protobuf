@@ -13,8 +13,7 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader){
 	
 
-	vector<string> v(1); // we know the multipart message has two parts 
-	int i = 0;
+	vector<string> v; // we know the multipart message has two parts 
 	
 	// process all parts of a multi-part message and place into vector v;
 	 while (1) {
@@ -25,7 +24,7 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
         //  Dump the message as text or binary
         int size = recMessage.size();
         std::string data(static_cast<char*>(recMessage.data()), size);
-		v[i] = data;
+		v.push_back(data);
 		
         bool is_text = true;
 
@@ -49,14 +48,11 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
         int more = 0;           //  Multipart detection
         size_t more_size = sizeof (more);
         _socket.getsockopt (ZMQ_RCVMORE, &more, &more_size);
-		i++;
         if (!more)
             break;              //  Last message part
     }
-	
 	messageHeader = v[0];
 	message = v[1];
-
 }
 
 void ZMQHandler::zmqReplyMethod(std::string &message){

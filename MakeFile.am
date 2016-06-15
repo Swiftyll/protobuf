@@ -3,6 +3,7 @@ AM_LDFLAGS= -lpthread
 bin_PROGRAMS = protoTestClient protoTestServer
 protoTestClient_SOURCES = \
 	src/client/clientMain.cpp \
+	src/client/servicesImplementation.cpp \
 	src/client/ZMQHandlerClient.cpp \
 	src/client/protoHandlerClient.cpp
 	
@@ -11,6 +12,7 @@ protoTestClient_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
 
 protoTestServer_SOURCES = \
 	src/server/serverMain.cpp \
+	src/client/serverImplementation.cpp \
 	src/server/ZMQHandlerServer.cpp \
 	src/server/protoHandlerServer.cpp
 	

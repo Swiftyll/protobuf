@@ -2,24 +2,12 @@
 #include <unistd.h>
 #include <string>
 
-#include "protoHandlerClient.hpp"
-#include "ZMQHandlerClient.hpp"
+
+#include "servicesImplementation.cpp"
 
 int main()
 {
-	std::string message;
-	std::string messageHeader;
-	
-	ProtoHandler pHandle;
-	pHandle.protoMethod(message, messageHeader);
-	
-	ZMQHandler zHandle;
-	int count;
-	
-	//Send message 10 sends and process reply
-	for(count=0;count<10;count++){
-		zHandle.zmqMethod(message, messageHeader);
-		pHandle.protoPrint(message);
-	}
-	
+	Services *s = new ServiceImplementation();
+	s->getNav();
+	return 0;
 }
