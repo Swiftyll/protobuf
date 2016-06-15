@@ -14,8 +14,7 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
 	
 
 	vector<string> v; // we know the multipart message has two parts 
-	int i = 0;
-	
+
 	// process all parts of a multi-part message and place into vector v;
 	 while (1) {
         //  Process all parts of the message
@@ -49,7 +48,6 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
         int more = 0;           //  Multipart detection
         size_t more_size = sizeof (more);
         _socket.getsockopt (ZMQ_RCVMORE, &more, &more_size);
-		i++;
         if (!more)
             break;              //  Last message part
     }
