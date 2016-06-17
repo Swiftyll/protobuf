@@ -24,7 +24,7 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
         //  Dump the message as text or binary
         int size = recMessage.size();
         std::string data(static_cast<char*>(recMessage.data()), size);
-		v[i] = data;
+		v.push_back(data);
 		
         bool is_text = true;
 
