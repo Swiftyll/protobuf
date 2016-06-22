@@ -2,32 +2,36 @@
 #include <unistd.h>
 #include <string>
 
+
 #include "protoHandlerServer.hpp"
 #include "ZMQHandlerServer.hpp"
 
 #include "serverInterface.hpp"
 
-class ServiceImplementation : public Services
+class ProxyServer : public Services
 {
 	public:
-		ServiceImplementation(){}
-		~ServiceImplementation(){}
+		ProxyServer(){}
+		~ProxyServer(){}
 		void getNav(){
+			std::cout << "get nav operation called";
+		}
+	
+		void getMessage(){
 			std::cout << "started" << std::endl;
 	
 			usleep(1000);
 			std::string message;
 			std::string messageHeader;
-				
+			std::string serviceRequest;
 			ProtoHandler pHandle;
 			ZMQHandler zHandle;
-			
-			int count;
-			
-			for(count=0;count<10;count++){	
-				zHandle.zmqReadMethod(message, messageHeader);
-				pHandle.protoMethod(message, messageHeader);
-				zHandle.zmqReplyMethod(message);
+
+			zHandle.zmqReadMethod(message, messageHeader);	
+			pHandle.protoMethod(message, messageHeader, serviceRequest);
+
+			if(serviceRequest == "getNav"){
+				getNav();
 			}
 	}
 };

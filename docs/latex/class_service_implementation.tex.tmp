@@ -1,0 +1,25 @@
+\hypertarget{class_service_implementation}{}\section{Service\+Implementation Class Reference}
+\label{class_service_implementation}\index{Service\+Implementation@{Service\+Implementation}}
+
+
+Inheritance diagram for Service\+Implementation\+:
+% FIG 0
+
+
+Collaboration diagram for Service\+Implementation\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries get\+Nav} ()\hypertarget{class_service_implementation_a8bdcc77581d536e52dce63004f96d6c5}{}\label{class_service_implementation_a8bdcc77581d536e52dce63004f96d6c5}
+
+\item 
+void {\bfseries get\+Nav} ()\hypertarget{class_service_implementation_a8bdcc77581d536e52dce63004f96d6c5}{}\label{class_service_implementation_a8bdcc77581d536e52dce63004f96d6c5}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/client/services\+Implementation.\+cpp\item 
+src/server/server\+Implementation.\+cpp\end{DoxyCompactItemize}

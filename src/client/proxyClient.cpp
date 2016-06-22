@@ -7,13 +7,14 @@
 
 #include "clientInterface.hpp"
 
-class ServiceImplementation : public Services
+class ProxyClient : public Services
 {
 	public:
-		ServiceImplementation(){}
-		~ServiceImplementation(){}
+		ProxyClient(){}
+		~ProxyClient(){}
+	
 		void getNav(){
-			std::string message;
+			std::string message = "getNav";
 			std::string messageHeader;
 
 			ProtoHandler pHandle;
@@ -27,6 +28,5 @@ class ServiceImplementation : public Services
 				zHandle.zmqMethod(message, messageHeader);
 				pHandle.protoPrint(message);
 			}
-
 	}
 };

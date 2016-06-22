@@ -2,12 +2,11 @@
 #include <unistd.h>
 #include <string>
 
-
-#include "servicesImplementation.cpp"
+#include "proxyClient.cpp"
 
 int main()
 {
-	Services *s = new ServiceImplementation();
+	Services *s = new ProxyClient ();
 	s->getNav();
-	return 0;
+
 }

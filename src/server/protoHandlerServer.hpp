@@ -3,6 +3,6 @@
 class ProtoHandler
 {
    public:
-     void protoMethod(std::string &message, std::string &messageHeader);
+     void protoMethod(std::string &message, std::string &messageHeader, std::string &serviceRequest);
 	 
 };

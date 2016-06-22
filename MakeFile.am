@@ -1,9 +1,9 @@
-AM_LDFLAGS= -lpthread
+AM_LDFLAGS= -lpthread 
 
 bin_PROGRAMS = protoTestClient protoTestServer
 protoTestClient_SOURCES = \
 	src/client/clientMain.cpp \
-	src/client/servicesImplementation.cpp \
+	src/client/proxyClient.cpp \
 	src/client/ZMQHandlerClient.cpp \
 	src/client/protoHandlerClient.cpp
 	
@@ -12,7 +12,7 @@ protoTestClient_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
 
 protoTestServer_SOURCES = \
 	src/server/serverMain.cpp \
-	src/client/serverImplementation.cpp \
+	src/server/proxyServer.cpp \
 	src/server/ZMQHandlerServer.cpp \
 	src/server/protoHandlerServer.cpp
 	
@@ -29,20 +29,26 @@ allProto.desc : $(wildcard $(srcdir)/src/pb2/*.proto)
 dist_noinst_DATA = \
 	src/pb2/phase2.proto \
 	src/pb2/sentMessage.proto \
+	src/pb2/ecoaType.proto \
+	src/pb2/data.proto \
         allProto.desc
 		
 nodist_protoTestClient_SOURCES = \
 	@builddir@/src/pb2/phase2.pb.cc \
 	@builddir@/src/pb2/phase2.pb.h \
 	@builddir@/src/pb2/sentMessage.pb.h\
-	@builddir@/src/pb2/sentMessage.pb.cc 
-
+	@builddir@/src/pb2/sentMessage.pb.cc \
+	@builddir@/src/pb2/ecoaType.pb.h\
+	@builddir@/src/pb2/ecoaType.pb.cc 
+	
 MOSTLYCLEANFILES = $(nodist_protoTestClient_SOURCES) \
                    $(nodist_protoTestServer_SOURCES) \
 		   allProto.desc
 
 BUILT_SOURCES = @builddir@/src/pb2/phase2.pb.h \
-		@builddir@/src/pb2/sentMessage.pb.h
+		@builddir@/src/pb2/sentMessage.pb.h \
+		@builddir@/src/pb2/ecoaType.pb.h \
+		@builddir@/src/pb2/data.pb.h 
 
 
 AM_CPPFLAGS = -I@builddir@ 

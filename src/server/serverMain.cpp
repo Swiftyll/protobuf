@@ -2,11 +2,11 @@
 #include <unistd.h>
 #include <string>
 
-#include "serverImplementation.cpp"
+#include "proxyServer.cpp"
 
 int main()
 {
-	Services* s = new ServiceImplementation();
-	s->getNav();
+	Services* s = new ProxyServer();
+	s->getMessage();
 	
 }

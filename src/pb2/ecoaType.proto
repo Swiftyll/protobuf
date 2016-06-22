@@ -1,0 +1,6 @@
+message RequestService
+{
+	required string description = 1;
+	required string serviceName = 2;
+	
+}
