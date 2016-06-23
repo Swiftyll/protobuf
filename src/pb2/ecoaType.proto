@@ -3,4 +3,9 @@ message RequestService
 	required string description = 1;
 	required string serviceName = 2;
 	
+	optional string parameterOneType = 3;
+	optional string parameterOneData = 4;
+	
+	optional string parameterTwoType = 5;
+	optional string parameterTwoData = 6;
 }

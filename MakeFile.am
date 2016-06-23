@@ -27,17 +27,10 @@ allProto.desc : $(wildcard $(srcdir)/src/pb2/*.proto)
 	$(PROTOC) --descriptor_set_out=$@ --proto_path=$(<D) $^
 	
 dist_noinst_DATA = \
-	src/pb2/phase2.proto \
-	src/pb2/sentMessage.proto \
 	src/pb2/ecoaType.proto \
-	src/pb2/data.proto \
         allProto.desc
 		
 nodist_protoTestClient_SOURCES = \
-	@builddir@/src/pb2/phase2.pb.cc \
-	@builddir@/src/pb2/phase2.pb.h \
-	@builddir@/src/pb2/sentMessage.pb.h\
-	@builddir@/src/pb2/sentMessage.pb.cc \
 	@builddir@/src/pb2/ecoaType.pb.h\
 	@builddir@/src/pb2/ecoaType.pb.cc 
 	
@@ -45,10 +38,8 @@ MOSTLYCLEANFILES = $(nodist_protoTestClient_SOURCES) \
                    $(nodist_protoTestServer_SOURCES) \
 		   allProto.desc
 
-BUILT_SOURCES = @builddir@/src/pb2/phase2.pb.h \
-		@builddir@/src/pb2/sentMessage.pb.h \
-		@builddir@/src/pb2/ecoaType.pb.h \
-		@builddir@/src/pb2/data.pb.h 
+BUILT_SOURCES = @builddir@/src/pb2/ecoaType.pb.h 
+
 
 
 AM_CPPFLAGS = -I@builddir@ 

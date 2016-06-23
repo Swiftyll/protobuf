@@ -13,8 +13,8 @@ class ProxyServer : public Services
 	public:
 		ProxyServer(){}
 		~ProxyServer(){}
-		void getNav(){
-			std::cout << "get nav operation called";
+		void addNum(){
+			std::cout << "sum of the two numbers: " << std::endl;
 		}
 	
 		void getMessage(){
@@ -24,14 +24,16 @@ class ProxyServer : public Services
 			std::string message;
 			std::string messageHeader;
 			std::string serviceRequest;
+			
+			
 			ProtoHandler pHandle;
 			ZMQHandler zHandle;
 
 			zHandle.zmqReadMethod(message, messageHeader);	
 			pHandle.protoMethod(message, messageHeader, serviceRequest);
 
-			if(serviceRequest == "getNav"){
-				getNav();
+			if(serviceRequest == "addNum"){
+				addNum();
 			}
 	}
 };

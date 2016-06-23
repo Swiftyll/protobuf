@@ -6,7 +6,7 @@
 
 int main()
 {
-	Services* s = new ProxyServer();
+	Services *s = new ProxyServer();
 	s->getMessage();
 	
 }

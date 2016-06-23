@@ -28,7 +28,7 @@ void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader)
 		
         bool is_text = true;
 
-        int char_nbr;
+        int char_nbr;		
         unsigned char byte;
         for (char_nbr = 0; char_nbr < size; char_nbr++) {
             byte = data [char_nbr];

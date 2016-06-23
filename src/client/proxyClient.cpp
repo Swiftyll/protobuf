@@ -13,20 +13,28 @@ class ProxyClient : public Services
 		ProxyClient(){}
 		~ProxyClient(){}
 	
-		void getNav(){
-			std::string message = "getNav";
+	
+		void addNum(){
+			//define the service message
+			std::string message = "addNum";
 			std::string messageHeader;
 
+			
+			//two parameters
+			//int lValue = a;
+			//int rValue = b;
+			
 			ProtoHandler pHandle;
 			pHandle.protoMethod(message, messageHeader);
 
-			ZMQHandler zHandle;
-			int count;
 
-			//Send message 10 sends and process reply
-			for(count=0;count<10;count++){
-				zHandle.zmqMethod(message, messageHeader);
-				pHandle.protoPrint(message);
-			}
+			ZMQHandler zHandle;
+
+			zHandle.zmqMethod(message, messageHeader);
+			
+			
+			
+			//pHandle.protoPrint(message);	//reply..
+
 	}
 };

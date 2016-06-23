@@ -8,8 +8,6 @@ class ZMQHandler
 	 ZMQHandler();
 	 
      void zmqReadMethod(std::string &message, std::string &messageHeader);
-	 
-	 
 	 void zmqReplyMethod(std::string &message);
 	 
    private:

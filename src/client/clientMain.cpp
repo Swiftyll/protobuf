@@ -6,7 +6,7 @@
 
 int main()
 {
-	Services *s = new ProxyClient ();
-	s->getNav();
+	Services *s = new ProxyClient();
+	s->addNum();
 
 }

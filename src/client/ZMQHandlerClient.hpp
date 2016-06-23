@@ -3,5 +3,5 @@
 class ZMQHandler
 {
    public:
-     void zmqMethod(std::string &message, std::string &messageHeader);
+     void zmqMethod(std::string &message, std::string &messageHeader );
 };
