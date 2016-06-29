@@ -3,11 +3,11 @@
 #include <string>
 #include <iostream>
 
-#include "ZMQHandlerClient.hpp"
+#include "ZMQSender.hpp"
 
 using namespace std;
 
-void ZMQHandler::zmqMethod(string &message, string &messageHeader){
+void ZMQSender::zmqMethod(string &message, string &messageHeader){
 	//Set up ZMQ 
 	zmq::context_t context (1);
 	zmq::socket_t socket (context, ZMQ_REQ);

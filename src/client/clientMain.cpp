@@ -2,11 +2,14 @@
 #include <unistd.h>
 #include <string>
 
-#include "proxyClient.cpp"
+#include "clientModule.hpp"
+#include "clientContainer.hpp"
+#include "serviceInterface.hpp"
 
 int main()
 {
-	Services *s = new ProxyClient();
-	s->addNum(2, 5);
-
+	clientContainer container;
+	Service* service = &container;
+	ClientModule module(service);
+	module.start();
 }

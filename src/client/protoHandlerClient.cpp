@@ -7,13 +7,9 @@
 #include "protoHandlerClient.hpp"
 #include "../pb2/ecoaType.pb.h"
 
-using namespace google::protobuf;
 
-
-
-
-void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader, int &lValue, int &rValue ){
-	
+void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
+								int &lValue, int &rValue ){
 	
 	//Initialise requestService & parameters
 	RequestService rS;
@@ -30,7 +26,7 @@ void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
 	std::string str;
 	rS.SerializeToString(&str);
 	
-	cout << "Created message";
+	std::cout << "Created message";
 	
 	//Create header for message
 	messageHeader = rS.descriptor()->full_name();
@@ -40,9 +36,5 @@ void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
 }
 
 void ProtoHandler::protoPrint(std::string &message){
-	//Person p;
-	
-	//Parse message and print debug message to screen
-	//p.ParseFromString(message);
-	//std::cout << "Person debug: " << p.debug() << std::endl;
+	//needs to be implemented...
 }
