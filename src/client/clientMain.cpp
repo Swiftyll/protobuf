@@ -7,6 +7,6 @@
 int main()
 {
 	Services *s = new ProxyClient();
-	s->addNum();
+	s->addNum(2, 5);
 
 }

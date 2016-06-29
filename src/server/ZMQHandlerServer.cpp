@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 	_socket.bind ("tcp://*:8123");
 }
@@ -13,7 +15,7 @@ ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader){
 	
 
-	vector<string> v; // we know the multipart message has two parts 
+	vector<string> v;		// we know the multipart message has two parts 
 	
 	// process all parts of a multi-part message and place into vector v;
 	 while (1) {

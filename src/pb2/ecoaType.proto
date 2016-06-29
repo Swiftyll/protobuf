@@ -1,11 +1,12 @@
 message RequestService
 {
-	required string description = 1;
-	required string serviceName = 2;
+	required string messageType = 6;
+	required int32 serviceID = 1;
 	
-	optional string parameterOneType = 3;
-	optional string parameterOneData = 4;
+	required string paraOneType = 2;
+	required int32 paraOnePayload = 3;
 	
-	optional string parameterTwoType = 5;
-	optional string parameterTwoData = 6;
+	required string paraTwoType = 4;
+	required int32 paraTwoPayload = 5;
+	
 }

@@ -12,38 +12,23 @@ using namespace google::protobuf;
 
 
 
-void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader){
+void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader, int &lValue, int &rValue ){
 	
 	
 	//Initialise requestService & parameters
 	RequestService rS;
+		 
+	rS.set_serviceid(1);
+	rS.set_messagetype("RequestService");
 	
-	rS.set_servicename(message);		 
-	rS.set_description("addNum call");
+	rS.set_paraonetype("int");
+	rS.set_paraonepayload(2);
+	
+	rS.set_paratwotype("int");
+	rS.set_paratwopayload(2);
 	
 	std::string str;
 	rS.SerializeToString(&str);
-	
-	// parameter as message
-	/*
-	//conver int to bytes
-	int *p = &lValue;
-	char* byteMessage;
-	memcpy(byteMessage,p,4);
-	
-	int *p2 = &rValue;
-	char* byteMessage2;
-	memcpy(byteMessage2,p2,4);
-	
-	
-	rSParameterOne.set_parametertype("int");
-	rSParameterOne.set_parameterdata(lValue);
-	rSParameterOne.SerializeToString(&parameterOne);
-	
-	rSParameterTwo.set_parametertype("int");
-	rSParameterTwo.set_parameterdata(rValue);
-	rSParameterTwo.SerializeToString(&parameterTwo);
-	*/
 	
 	cout << "Created message";
 	

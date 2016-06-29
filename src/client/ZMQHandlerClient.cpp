@@ -10,9 +10,9 @@ using namespace std;
 void ZMQHandler::zmqMethod(string &message, string &messageHeader){
 	//Set up ZMQ 
 	zmq::context_t context (1);
-    zmq::socket_t socket (context, ZMQ_REQ);
+	zmq::socket_t socket (context, ZMQ_REQ);
 	socket.connect ("tcp://localhost:8123");
-
+	
 	//Create and send the message
 	int message_size =  message.length();
 	int header_size = messageHeader.length();

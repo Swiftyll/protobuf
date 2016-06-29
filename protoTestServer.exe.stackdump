@@ -1,6 +1,0 @@
-Exception: STATUS_ACCESS_VIOLATION at eip=5C350B95
-eax=00000031 ebx=8006C324 ecx=FFFFFFFF edx=00000025 esi=80015BA4 edi=00000017
-ebp=00000001 esp=0028CB60 program=D:\ProtocolBuffers\newattest\ttttt\decoupled\protoTestServer.exe, pid 7224, thread main
-cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
-Stack trace:
-Frame     Function  Args

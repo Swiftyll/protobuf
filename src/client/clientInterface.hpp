@@ -3,5 +3,5 @@ class Services
 	public:
 		Services(){}
 		virtual ~Services() {}	
-		virtual void addNum() = 0;
+		virtual void addNum(int a,int b) = 0;
 };

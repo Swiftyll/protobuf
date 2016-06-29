@@ -35,7 +35,8 @@ We can create FieldDescriptors for these messages, and use those to Read/Write t
 
 using namespace google::protobuf;
 
-void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader, std::string &serviceRequest){
+void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader, int &serviceRequest,
+								int &lValue, int &rValue){
 	
 	int cfile = open("allProto.desc", O_RDONLY);
 	FileDescriptorSet fileDescSet;
@@ -60,12 +61,15 @@ void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
 	
 	msg->ParseFromArray(message.data(),message.size());
 	
-	const FieldDescriptor* requestField = desc->FindFieldByName("serviceName");
+	const FieldDescriptor* requestID = desc->FindFieldByName("serviceID");
+	const FieldDescriptor* parameterOne = desc->FindFieldByName("paraOnePayload");
+	const FieldDescriptor* parameterTwo = desc->FindFieldByName("paraTwoPayload");
 	
 	const Reflection *msgRefl = msg->GetReflection();
 
-	serviceRequest =  msgRefl->GetString(*msg, requestField);
-	
+	serviceRequest =  msgRefl->GetInt32(*msg, requestID);
+	lValue =  msgRefl->GetInt32(*msg, parameterOne);
+	rValue =  msgRefl->GetInt32(*msg, parameterTwo);
 	//msgRefl->SetString(msg, debugField, "Read by Server");
 	
 	msg->SerializeToString(&message);
