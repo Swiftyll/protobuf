@@ -1,8 +1,9 @@
+#include "ZMQReceiver.hpp"
+
 #include <string>
 #include <iostream>
 #include <vector>
 
-#include "ZMQHandlerServer.hpp"
 
 using namespace std;
 

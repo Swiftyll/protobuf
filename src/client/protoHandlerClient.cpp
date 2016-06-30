@@ -9,8 +9,8 @@
 
 
 void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
-								int &lValue, int &rValue ){
-	
+								int &lValue, int &rValue )
+{
 	//Initialise requestService & parameters
 	RequestService rS;
 		 
@@ -35,6 +35,7 @@ void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
 	message = str;
 }
 
-void ProtoHandler::protoPrint(std::string &message){
+void ProtoHandler::protoPrint(std::string &message)
+{
 	//needs to be implemented...
 }

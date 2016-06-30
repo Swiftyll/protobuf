@@ -2,11 +2,15 @@
 #include <unistd.h>
 #include <string>
 
-#include "proxyServer.cpp"
+#include "serverContainer.hpp"
+#include "serverInterface.hpp"
+#include "serverModule.hpp"
 
 int main()
 {
-	Services *s = new ProxyServer();
-	s->getMessage();
+	serverContainer container;
+	Services* service = &container;
+	ServerModule module(service);
+	module.start();
 	
 }

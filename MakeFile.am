@@ -13,8 +13,9 @@ protoTestClient_LDADD = $(libzmq_LIBS) $(PTHREAD_LIBS)
 
 protoTestServer_SOURCES = \
 	src/server/serverMain.cpp \
-	src/server/proxyServer.cpp \
-	src/server/ZMQHandlerServer.cpp \
+	src/server/serverModule.cpp \
+	src/server/serverContainer.cpp \
+	src/server/ZMQReceiver.cpp \
 	src/server/protoHandlerServer.cpp
 	
 protoTestServer_CPPFLAGS = $(libzmq_CFLAGS) 
