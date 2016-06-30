@@ -3,11 +3,11 @@
 
 #include "serverInterface.hpp"
 
-class serverContainer : public Services
-{
+class serverContainer : public Services{
+
 	public:
 		serverContainer();
-		~serverContainer();
+		virtual ~serverContainer();
 
 		void addNum(int a, int b);
 		void getMessage();

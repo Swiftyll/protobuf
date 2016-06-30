@@ -5,29 +5,35 @@
 
 #include "ZMQSender.hpp"
 
-using namespace std;
 
-void ZMQSender::zmqMethod(string &message, string &messageHeader){
-	//Set up ZMQ 
-	zmq::context_t context (1);
-	zmq::socket_t socket (context, ZMQ_REQ);
-	socket.connect ("tcp://localhost:8123");
-	
+ZMQSender::ZMQSender(): _context(1), _socket(_context, ZMQ_REQ){
+
+	_socket.connect ("tcp://localhost:8123");
+	std::cout << "ZMQSender Constructor" << std::endl;
+}
+
+ZMQSender::~ZMQSender(){
+
+	std::cout << "ZMQSender Destructor" << std::endl;
+}
+
+void ZMQSender::zmqMethod(std::string &message, std::string &messageHeader){
+
 	//Create and send the message
 	int message_size =  message.length();
 	int header_size = messageHeader.length();
 	
-	zmq::message_t header(header_size);
+	zmq::message_t header(header_size);		//message header defining message type
 	memcpy(header.data(), messageHeader.c_str(), header_size);
-	socket.send(header, ZMQ_SNDMORE);
+	_socket.send(header, ZMQ_SNDMORE);		//ZMQ_SNDMORE flag to specify multi-part
 	
-	zmq::message_t query(message_size);
+	zmq::message_t query(message_size);		//send the rest of the message
 	memcpy(query.data(), message.c_str(), message_size);
-	socket.send (query);
+	_socket.send (query);
 
 	//  Get the reply.
 	zmq::message_t reply;
-	socket.recv (&reply);
+	_socket.recv (&reply);
 	std::string msg_str(static_cast<char*>(reply.data()), reply.size());
 	message =  msg_str;
 }

@@ -7,18 +7,18 @@
 #include "clientContainer.hpp"
 
 
-clientContainer::clientContainer()		//constructor
-{
+clientContainer::clientContainer(){	//constructor
+
 	std::cout << " clientContainer Constructed...";
 }
 
-clientContainer::~clientContainer()		//destructor
-{
+clientContainer::~clientContainer(){		//destructor
+
 	std::cout << "clientContainer Destructed...";
 }
 
-void clientContainer::addNum(int a, int b)
-{
+void clientContainer::addNum(int a, int b){
+
 	//define the service message
 	std::string message = "addNum";
 	std::string messageHeader;	

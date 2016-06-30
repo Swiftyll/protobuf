@@ -35,6 +35,14 @@ We can create FieldDescriptors for these messages, and use those to Read/Write t
 
 using namespace google::protobuf;
 
+ProtoHandler::ProtoHandler(){
+	std::cout << "ProtoHandler constructor..." << std::endl;
+}
+
+ProtoHandler::~ProtoHandler(){
+	std::cout << "ProtoHandler destructor..." << std::endl;
+}
+
 void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader, int &serviceRequest,
 								int &lValue, int &rValue){
 	

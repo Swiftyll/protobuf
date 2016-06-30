@@ -3,8 +3,8 @@
 
 #include "serviceInterface.hpp"
 
-class ClientModule
-{
+class ClientModule{
+
 	public:
 		ClientModule(Service* s);
 		void start();

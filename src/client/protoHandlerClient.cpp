@@ -9,8 +9,8 @@
 
 
 void ProtoHandler::protoMethod(std::string &message, std::string &messageHeader,
-								int &lValue, int &rValue )
-{
+								int &lValue, int &rValue ){
+
 	//Initialise requestService & parameters
 	RequestService rS;
 		 

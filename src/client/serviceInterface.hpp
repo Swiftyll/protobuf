@@ -1,7 +1,7 @@
 #ifndef SERVICES
 #define SERVICES
-class Service
-{
+
+class Service {
 	public:
 		Service(){}
 		virtual ~Service() {}	

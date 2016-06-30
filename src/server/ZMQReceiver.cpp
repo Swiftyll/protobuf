@@ -11,6 +11,11 @@ using namespace std;
 
 ZMQHandler::ZMQHandler(): _context(1),_socket(_context, ZMQ_REP) {
 	_socket.bind ("tcp://*:8123");
+	std::cout << "ZMQHandler constructor..." << std::endl;
+}
+
+ZMQHandler::~ZMQHandler(){
+	std::cout << "ZMQHandler destructor..." << std::endl;
 }
 
 void ZMQHandler::zmqReadMethod(std::string &message, std::string &messageHeader){

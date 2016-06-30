@@ -3,8 +3,8 @@
 
 #include "serverInterface.hpp"
 
-class ServerModule
-{
+class ServerModule{
+
 	public:
 		ServerModule(Services* s);
 		void start();

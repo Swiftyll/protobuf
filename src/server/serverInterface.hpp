@@ -1,11 +1,11 @@
 #ifndef S_SERVICE
 #define S_SERVICE
 
-class Services
-{
+class Services{
+
 	public:
 		Services(){}
-		virtual ~Services(){}
+		~Services(){}
 		virtual void addNum(int a, int b) = 0;
 		virtual void getMessage() = 0;
 };

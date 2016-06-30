@@ -6,11 +6,10 @@
 #include "serverInterface.hpp"
 #include "serverModule.hpp"
 
-int main()
-{
+int main(){
+
 	serverContainer container;
 	Services* service = &container;
 	ServerModule module(service);
 	module.start();
-	
 }

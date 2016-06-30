@@ -5,23 +5,19 @@
 #include "protoHandlerServer.hpp"
 #include "ZMQReceiver.hpp"
 
-serverContainer::serverContainer()
-{
-
+serverContainer::serverContainer(){
+	std::cout << "serverContainer constructor.." << std::endl;
 }
 
-serverContainer::~serverContainer()
-{
-
+serverContainer::~serverContainer(){
+	std::cout << "serverContainer destructor.." << std::endl;
 }
 
-void serverContainer::addNum(int a,int b)
-{
+void serverContainer::addNum(int a,int b){
 	std::cout << "sum of the two numbers: " << a + b << std::endl;
 }
 
-void serverContainer::getMessage()
-{
+void serverContainer::getMessage(){
 	std::cout << "started" << std::endl;
 
 	usleep(1000);
@@ -38,7 +34,7 @@ void serverContainer::getMessage()
 	zHandle.zmqReadMethod(message, messageHeader);
 	pHandle.protoMethod(message, messageHeader, serviceRequest, lValue, rValue);
 
-	if(serviceRequest == 1){
+	if(serviceRequest == 1)	{
 		addNum(lValue, rValue);
 	}
 }

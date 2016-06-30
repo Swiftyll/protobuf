@@ -6,8 +6,9 @@
 #include "clientContainer.hpp"
 #include "serviceInterface.hpp"
 
-int main()
-{
+
+int main(){
+
 	clientContainer container;
 	Service* service = &container;
 	ClientModule module(service);
