@@ -4,15 +4,14 @@
 
 class ZMQHandler
 {
-   public:
-	 ZMQHandler();
-	 ~ZMQHandler();
-	 
-     void zmqReadMethod(std::string &message, std::string &messageHeader);
-	 void zmqReplyMethod(std::string &message);
-	 
-   private:
-	 zmq::context_t _context;//(1);//(1);
-     zmq::socket_t _socket;//(_context, ZMQ_REP);
+public:
+	ZMQHandler();
+	~ZMQHandler();
 
+	void zmqReadMethod(std::string &message, std::string &messageHeader);
+	void zmqReplyMethod(std::string &message);
+
+private:
+	zmq::context_t _context;
+	zmq::socket_t _socket;
 };

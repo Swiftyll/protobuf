@@ -1,19 +1,24 @@
+#include "C2_Container.hpp"
+
 #include <iostream>
 #include <unistd.h>
+#include <map>
 
-#include "serverContainer.hpp"
-#include "protoHandlerServer.hpp"
+#include "ProtoHandler_C2.hpp"
 #include "ZMQReceiver.hpp"
 
 serverContainer::serverContainer(){
+
 	std::cout << "serverContainer constructor.." << std::endl;
 }
 
 serverContainer::~serverContainer(){
+
 	std::cout << "serverContainer destructor.." << std::endl;
 }
 
 void serverContainer::addNum(int a,int b){
+
 	std::cout << "sum of the two numbers: " << a + b << std::endl;
 }
 
@@ -26,7 +31,6 @@ void serverContainer::getMessage(){
 	int serviceRequest;
 	int lValue;
 	int rValue;
-
 
 	ProtoHandler pHandle;
 	ZMQHandler zHandle;

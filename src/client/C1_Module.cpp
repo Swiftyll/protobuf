@@ -1,6 +1,6 @@
-#include "clientModule.hpp"
+#include "C1_Module.hpp"
 
-ClientModule::ClientModule(Service* s){
+ClientModule::ClientModule(C1_Service* s){
 
 	this->s = s;
 }
